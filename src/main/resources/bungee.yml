@@ -1,0 +1,5 @@
+name: BungeeUtils
+version: '1.0-SNAPSHOT'
+main: xyz.herberto.bungeeUtils.BungeeUtils
+author: herberto
+description: A BungeeCord utilities and core plugin

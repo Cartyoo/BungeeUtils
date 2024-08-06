@@ -1,0 +1,16 @@
+
+# Hub Configuration
+hub-name: 'Hub'
+
+
+# Messages Configuration
+messages:
+  hub:
+    sending: '&aSending you to the Hub'
+    already-connected: '&cYou are already in the Hub!'
+    sent: '&aYou have sent &f<player>&a to the Hub'
+  bungeeutils:
+    reloaded: '&aReloaded config.yml in <time>ms.'
+    config-error: '&cFailed to reload config. Please check console for more information.'
+  staffchat:
+    format: '&3[STAFF] &f<player>&7: &f<message>'
