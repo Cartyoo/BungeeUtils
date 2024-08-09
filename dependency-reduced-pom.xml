@@ -4,7 +4,7 @@
   <groupId>xyz.herberto</groupId>
   <artifactId>BungeeUtils</artifactId>
   <name>BungeeUtils</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.5.0-DEV</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>
@@ -78,8 +78,8 @@
           </execution>
         </executions>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
+          <source>15</source>
+          <target>15</target>
         </configuration>
       </plugin>
     </plugins>
@@ -105,6 +105,12 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.28</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.luckperms</groupId>
+      <artifactId>api</artifactId>
+      <version>5.4</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

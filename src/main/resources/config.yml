@@ -1,6 +1,6 @@
 
 # Hub Configuration
-hub-name: 'Hub'
+hub-name: 'hub'
 
 
 # Messages Configuration
@@ -13,4 +13,14 @@ messages:
     reloaded: '&aReloaded config.yml in <time>ms.'
     config-error: '&cFailed to reload config. Please check console for more information.'
   staffchat:
-    format: '&3[STAFF] &f<player>&7: &f<message>'
+    format: '&3[STAFF] &b[<server>] &f<player>&7: &f<message>'
+  alert:
+    format: '&8[&4Global Alert&8] &f<message>'
+  switch:
+    connected: '&3[STAFF] &f<player> &aconnected&f to &b<server>'
+    disconnected: '&3[STAFF] &f<player> &cdisconnected&f from &b<server>'
+  media:
+    format: '&d&l[ᴍᴇᴅɪᴀ ᴀɴɴᴏᴜɴᴄᴇᴍᴇɴᴛ]&7: &5<player>&7: &f<message>'
+  resetmediacooldown:
+      reset-target: '&aYour /media cooldown has been reset.'
+      reset: '&aYou have reset &f<player>&a''s /media cooldown.'

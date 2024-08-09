@@ -24,7 +24,7 @@ public class HubCommand extends BaseCommand {
 
             if (target == null) {
                 if (sender.getServer().getInfo().equals(hubInfo)) {
-                    sender.sendMessage(CC.translate(BungeeUtils.getConfig().getString("messages.hub.already-conected")));
+                    sender.sendMessage(CC.translate(BungeeUtils.getConfig().getString("messages.hub.already-connected")));
                 } else {
                     sender.connect(hubInfo);
                     sender.sendMessage(CC.translate(BungeeUtils.getConfig().getString("messages.hub.sending")));

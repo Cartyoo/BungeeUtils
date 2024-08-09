@@ -6,8 +6,10 @@ import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Syntax;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import xyz.herberto.bungeeUtils.BungeeUtils;
 import xyz.herberto.bungeeUtils.utils.CC;
+import xyz.herberto.bungeeUtils.utils.LuckPermUtils;
 
 public class StaffChatCommand extends BaseCommand {
 
@@ -15,13 +17,21 @@ public class StaffChatCommand extends BaseCommand {
     @CommandPermission("bungeeutils.command.staffchat")
     @Syntax("<message>")
 
-    public void staffChat(CommandSender sender, String message) {
+    public void staffChat(CommandSender sender, String[] message) {
 
-        ProxyServer.getInstance().getPlayers().stream()
-                .filter(staffMember -> staffMember.hasPermission("bungeeutils.staff"))
-                .forEach(staffMember -> staffMember.sendMessage(CC.translate(BungeeUtils.getConfig().getString("messages.staffchat.format").replaceAll("<message>", String.join(" ", message).replaceAll("<player>", sender.getName())))));
+        if(!String.join(" ", message).isEmpty()) {
 
-        ProxyServer.getInstance().getLogger().info(CC.translate(BungeeUtils.getConfig().getString("messages.staffchat.format").replaceAll("<message>", String.join(" ", message).replaceAll("<player>", sender.getName()))));
+            ProxiedPlayer player = (ProxiedPlayer)sender;
+
+            ProxyServer.getInstance().getPlayers().stream()
+                    .filter(staffMember -> staffMember.hasPermission("bungeeutils.staff"))
+                    .forEach(staffMember -> staffMember.sendMessage(CC.translate(BungeeUtils.getConfig().getString("messages.staffchat.format").replaceAll("<message>", String.join(" ", message)).replaceAll("<player>", LuckPermUtils.getDisplayName(player)).replaceAll("<server>", player.getServer().getInfo().getName()))));
+
+            ProxyServer.getInstance().getLogger().info(CC.translate(BungeeUtils.getConfig().getString("messages.staffchat.format").replaceAll("<message>", String.join(" ", message)).replaceAll("<player>", LuckPermUtils.getDisplayName(player)).replaceAll("<server>", player.getServer().getInfo().getName())));
+        } else {
+            sender.sendMessage(CC.translate("&c/staffchat <message>"));
+        }
+
     }
 
 }

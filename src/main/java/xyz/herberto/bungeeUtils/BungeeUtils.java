@@ -6,12 +6,11 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
-import xyz.herberto.bungeeUtils.commands.BungeeUtilsCommand;
-import xyz.herberto.bungeeUtils.commands.HubCommand;
-import xyz.herberto.bungeeUtils.commands.StaffChatCommand;
+import xyz.herberto.bungeeUtils.commands.*;
+import xyz.herberto.bungeeUtils.listeners.SwitchListener;
+import xyz.herberto.bungeeUtils.utils.ReplyMap;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -22,6 +21,8 @@ import java.util.logging.Level;
 public final class BungeeUtils extends Plugin {
     @Getter private static BungeeUtils instance;
     @Getter private static Configuration config;
+    @Getter private static ReplyMap replyMap;
+
 
     @Override
     public void onEnable() {
@@ -44,8 +45,15 @@ public final class BungeeUtils extends Plugin {
         Arrays.asList(
                 new HubCommand(),
                 new BungeeUtilsCommand(),
-                new StaffChatCommand()
+                new StaffChatCommand(),
+                new AlertCommand(),
+                new MessageCommand(this, replyMap),
+                new ReplyCommand(this, replyMap),
+                new MediaCommand(),
+                new ResetMediaCooldownCommand()
         ).forEach(manager::registerCommand);
+
+        getProxy().getPluginManager().registerListener(this, new SwitchListener());
 
 
     }

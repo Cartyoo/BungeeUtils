@@ -44,9 +44,9 @@ public class BungeeUtilsCommand extends BaseCommand {
 
     @Subcommand("info")
     public void info(CommandSender sender) {
-        sender.sendMessage(CC.translate("&7&m                                                                                                              "));
-        sender.sendMessage(CC.translate(" &8| &fRunning BungeeCord Version &7" + BungeeUtils.getInstance().getProxy().getVersion() + " &fwith BungeeUtils Version &7" + BungeeUtils.getInstance().getDescription().getVersion() + "&f made by &7" + BungeeUtils.getInstance().getDescription().getAuthor()));
-        sender.sendMessage(CC.translate("&7&m                                                                                                              "));
+        sender.sendMessage(CC.translate("&7&m                                                                                "));
+        sender.sendMessage(CC.translate(" &8| &aRunning BungeeUtils Version &f" + BungeeUtils.getInstance().getDescription().getVersion() + "&a made by &f" + BungeeUtils.getInstance().getDescription().getAuthor()));
+        sender.sendMessage(CC.translate("&7&m                                                                                "));
     }
 
 }
