@@ -2,34 +2,27 @@ package xyz.herberto.bungeeUtils.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
+import co.aikar.commands.bungee.contexts.OnlinePlayer;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import xyz.herberto.bungeeUtils.BungeeUtils;
 import xyz.herberto.bungeeUtils.utils.CC;
 import xyz.herberto.bungeeUtils.utils.ReplyMap;
 
-@CommandAlias("message|msg")
 public class MessageCommand extends BaseCommand {
 
-    private final BungeeUtils plugin;
     private final ReplyMap replyMap;
 
     public MessageCommand(BungeeUtils plugin, ReplyMap replyMap) {
-        this.plugin = plugin;
         this.replyMap = replyMap;
     }
 
+    @CommandAlias("message|msg")
     @CommandCompletion("@players")
-    @Default
-    public void onMessage(CommandSender sender, String targetName, String[] message) {
+    @Syntax("<player> <message>")
+    public void onMessage(CommandSender sender, OnlinePlayer target, String[] message) {
         ProxiedPlayer senderPlayer = (ProxiedPlayer) sender;
 
-        if (BungeeUtils.getInstance().getProxy().getPlayer(targetName) == null || !BungeeUtils.getInstance().getProxy().getPlayer(targetName).isConnected()) {
-            sender.sendMessage(CC.translate("&cPlayer " + BungeeUtils.getInstance().getProxy().getPlayer(targetName).getName() + " not found."));
-            return;
-        }
-
-        ProxiedPlayer target = BungeeUtils.getInstance().getProxy().getPlayer(targetName);
 
         StringBuilder messageBuilder = new StringBuilder();
         for (String word : message) {
@@ -37,15 +30,15 @@ public class MessageCommand extends BaseCommand {
         }
 
         if(messageBuilder.isEmpty()) {
-            senderPlayer.sendMessage(CC.translate("&cYou can not send an empty reply."));
+            senderPlayer.sendMessage(CC.translate("&cYou can not send an empty message."));
             return;
         }
 
-        target.sendMessage(CC.translate("&8[&c&lMSG&8] &f" + senderPlayer.getName() + " -> You: ") + messageBuilder);
-        sender.sendMessage(CC.translate("&8[&c&lMSG&8] &fYou -> " + target.getName() + ": " + messageBuilder));
+        target.getPlayer().sendMessage(CC.translate("&8[&c&lMSG&8] &f" + senderPlayer.getName() + " -> You: ") + messageBuilder);
+        sender.sendMessage(CC.translate("&8[&c&lMSG&8] &fYou -> " + target.getPlayer().getName() + ": " + messageBuilder));
 
-        replyMap.setLastMessaged(senderPlayer.getUniqueId(), target.getUniqueId());
-        replyMap.setLastMessaged(target.getUniqueId(), senderPlayer.getUniqueId());
+        replyMap.setLastMessaged(senderPlayer.getUniqueId(), target.getPlayer().getUniqueId());
+        replyMap.setLastMessaged(target.getPlayer().getUniqueId(), senderPlayer.getUniqueId());
 
     }
 

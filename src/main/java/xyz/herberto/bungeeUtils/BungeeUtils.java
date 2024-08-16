@@ -30,6 +30,9 @@ public final class BungeeUtils extends Plugin {
         /* Initialize the instance */
         instance = this;
 
+        /* Initialize the replyMap */
+        replyMap = new ReplyMap();
+
         /* Setup config file */
         saveDefaultConfig();
         try {
